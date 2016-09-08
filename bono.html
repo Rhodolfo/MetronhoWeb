@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang=\"en\">
+
+<head>
+	<meta charset=\"utf-8\">
+	<title>Index</title>
+</head>
+
+
+
+<body>
+
+<!-- Scripts --!>
+<script src="js/angular.min.js"></script>
+
+<div id="content-wrapper" ng-app="marcasAng" ng-controller="marcasCtrl">
+
+	<table>
+		<tr> 
+			<td> A11 </td>
+			<td> A12 </td>
+		</tr>
+		<tr>
+			<td> A21 </td>
+			<td> A22 </td>
+		</tr>
+	</table>
+
+	<ul>
+		<li> uno </li>
+		<li> dos </li>
+		<li> tres </li>
+	</ul>
+
+	<p> {{mensaje}} </p>
+	<input ng-click="cambia()" type="button" value="Bono"/>
+	
+
+</div>
+
+
+<script>
+
+var marcas = angular.module("marcasAng", []);
+marcas.controller("marcasCtrl", function($scope) {
+	$scope.mensaje = "uno dos tres"; // Init message
+	$scope.cambia  = function() { // Disable/enable 
+		$scope.mensaje = "catorce";
+	};
+});
+
+</script>
+
+</body>
+</html>
