@@ -70,14 +70,22 @@ if (!$check) {
 		// La variable "equipo" es un ID en la tabla de equipos, debe ser entero
 		$id    = intval($ANGULAR["equipo"]);
 		// De cualquier manera, utilizamos esta variable para hacer una consulta
+		// Esta es la manera segura de meter una variable que proporciona un usuario
+		// a una consulta de MySQL, por medio de "prepared statements"
+		// http://www.w3schools.com/php/php_mysql_prepared_statements.asp
+		// http://php.net/manual/en/pdo.prepared-statements.php
+		// Estas consultas preparadas son muy útiles para optimizar operaciones
+		// y defenderse contra ataques de inyección SQL
 		$query = "SELECT color FROM equipos WHERE ID = ?;";
-		$state = $con->prepare($query);
-		$state->bind_param('i',$id);
-		$state->execute();
-		$state->bind_result($color);
-		if (!$state->fetch()) {
+		$state = $con->prepare($query); // Compila la consulta, no la ejecuta
+		$state->bind_param('i',$id); // $id toma el valor de ? en la consulta
+		$state->execute(); // Ejecuta
+		$state->bind_result($color); // Ata la variable $color al resultado, fetch() se encarga de esto
+		if (!$state->fetch()) { // $state->fetch() es false si no se encontraron resultados, 
+					// en el caso que se haya encontrado un resultado,
+					// la variable $color toma el valor del resultado cuando se llama fetch()
 			die("Error al recoger datos");
-		}	
+		}
 		$mess .= "<p>Tu equipo es ".$color.".</p>";
 	} else {
 		$mess .= "<p>No mandaste tu equipo.</p>";
