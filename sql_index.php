@@ -43,7 +43,7 @@
 		</tr>
 	</table>
 	<p> Este es el objeto "data" que se manda a servidor por medio de la función "send": </p>
-	{{data}}<br>
+	<p>{{data}}</p>
 	<input type="button" value="Mandar datos" ng-click="send(data)"/><br>
 	<p ng-bind-html="mensaje"></p>
 </body>
